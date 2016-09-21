@@ -78,7 +78,64 @@ public class DepthFirstSearch
             stack.Push(rootVert);
             return stack;
         }       
+    }       
+}
+
+
+// O(n+m)
+// n - count of vertexes,
+// m - count of edges,
+// distTo array tells how many edges there is to v vertex stating from root vertex
+public class BreadthFirstSearch
+{
+    public int[] edgeTo;
+    public int[] distTo;
+    public int rootVertex;
+    
+    public BreadthFirstSearch(GraphAdjacencyList graph, int root){
+        int vertexesCount = graph.GetVertexCount();
+        edgeTo = new int[vertexesCount];
+        distTo = new int[vertexesCount];
+                
+        for(var i = 0; i < vertexesCount; i++){
+            edgeTo[i] = -1;
+            distTo[i] = -1;            
+        }
+        this.rootVertex = root;
+        BFS(graph, root);
     }
     
-    
+    private void BFS(GraphAdjacencyList graph, int root){
+        var queue = new Queue<int>();
+        
+        queue.Enqueue(root);
+        distTo[root] = 0;
+        
+        while(queue.Count != 0){
+            int v = queue.Dequeue();
+            
+            foreach(var w in graph.GetNeighbors(v)){
+                if(distTo[w] == -1){
+                    queue.Enqueue(w);
+                    distTo[w] = distTo[v]+1;
+                    edgeTo[w] = v;
+                }
+            }
+        }
+    } 
+
+     public IEnumerable<int> GetPathTo(int v){
+        if(!HasPathTo(v)){
+            return null;
+        }
+        else{
+            var stack = new Stack<int>();
+            
+            for(int i=v; i!=rootVert; i=edgeTo[i]){
+                stack.Push(i);
+            }
+            stack.Push(rootVert);
+            return stack;
+        }       
+    }   
 }
