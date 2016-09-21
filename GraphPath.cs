@@ -2,8 +2,7 @@
 //Graph represented with AdjacencyList
 // public methods:
 //          AddEdge(int v1, int v2)  to add edge between specific vertexes
-//          GetEdges(int v)         to get all edges of specific vertex
-
+//          GetNeighbors(int v)         to get all edges of specific vertex
 public class GraphAdjacencyList
 {
     private readonly int VertexCount;
@@ -49,7 +48,6 @@ public class DepthFirstSearch
         this.rootVert = rootVert;
         DFS(graph, rootVert);
     }
-    
     
     private void DFS(GraphAdjacencyList graph, int v){
         marked[v] = true;
@@ -124,7 +122,7 @@ public class BreadthFirstSearch
         }
     } 
 
-     public IEnumerable<int> GetPathTo(int v){
+    public IEnumerable<int> GetPathTo(int v){
         if(!HasPathTo(v)){
             return null;
         }
